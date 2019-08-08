@@ -1,53 +1,56 @@
 // Soldier
-function Soldier(health, strength) {
-    this.health = health;
-    this.strength = strength;
-}
+class Soldier {
+    constructor(health, strength) {
+        this.health = health;
+        this.strength = strength;
+    }
 
-Soldier.prototype.attack = function() {
-    return this.strength;
-}
+    attack() {
+        return this.strength;
+    }
 
-Soldier.prototype.receiveDamage = function(damage) {
-    this.health -= damage;
+    receiveDamage(damage) {
+        this.health -= damage;
+    }
 }
 
 // Viking
-function Viking(name, health, strength) {
-    Soldier.call(this, health, strength);
-    this.name = name;
-}
-Viking.prototype = Object.create(Soldier.prototype);
-Viking.prototype.constructor = Viking;
-
-Viking.prototype.receiveDamage = function(damage) {
-    this.health -= damage;
-    if (this.health > 0) {
-        return this.name + ' has received ' + damage + ' points of damage';
+class Viking extends Soldier {
+    constructor(name, health, strength) {
+        super(health, strength);
+        this.name = name;
     }
-    else {
-        return this.name + ' has died in act of combat';
+
+    receiveDamage(damage) {
+        this.health -= damage;
+        if (this.health > 0) {
+            return this.name + ' has received ' + damage + ' points of damage';
+        }
+        else {
+            return this.name + ' has died in act of combat';
+        }
+    }
+
+    battleCry() {
+        return 'Odin Owns You All!';
     }
 }
 
-Viking.prototype.battleCry = function() {
-    return 'Odin Owns You All!';
-}
 
 // Saxon
-function Saxon(health, strength) {
-    Soldier.call(this, health, strength);
-}
-Saxon.prototype = Object.create(Soldier.prototype);
-Saxon.prototype.constructor = Saxon;
-
-Saxon.prototype.receiveDamage = function(damage) {
-    this.health -= damage;
-    if (this.health > 0) {
-        return 'A Saxon has received ' + damage + ' points of damage';
+class Saxon extends Soldier {
+    constructor(health, strength) {
+        super(health, strength);
     }
-    else {
-        return 'A Saxon has died in combat';
+
+    receiveDamage(damage) {
+        this.health -= damage;
+        if (this.health > 0) {
+            return 'A Saxon has received ' + damage + ' points of damage';
+        }
+        else {
+            return 'A Saxon has died in combat';
+        }
     }
 }
 
